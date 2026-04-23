@@ -253,7 +253,7 @@ export default function App() {
         <div className="loading-circle lc1"></div>
         <div className="loading-circle lc2"></div>
         <div className="loading-circle lc3"></div>
-        <h1 className="absolute text-white font-black text-2xl tracking-[0.5em] z-10">CLICOM</h1>
+        <div className="absolute text-white font-black text-2xl tracking-[0.5em] z-10">CLICOM</div>
       </div>
 
       {/* NAVIGATION PRESTIGE */}
@@ -310,7 +310,7 @@ export default function App() {
             <div className={`transition-all duration-1000 transform ${!loading ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '300ms' }}>
               <Badge color="green">L'élite digitale suisse romande</Badge>
               <h1 className="text-5xl md:text-8xl font-black leading-none mb-8 tracking-tighter">
-                Le digital <br/> <span className="text-[#76FF03]">sans blabla.</span>
+                Déménagement [Ville] <br /> <span className="text-[#76FF03]">- Fly Déménagement</span>
               </h1>
               <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto mb-12 font-medium">
                 Nous traduisons vos ambitions en performance brute. <br/>Sites ultra-rapides, design d'impact, clients réels.
@@ -332,8 +332,11 @@ export default function App() {
           <div className="max-w-7xl mx-auto">
             <Reveal>
               <div className="text-center mb-20">
-                <span className="text-[#623ebd] font-black uppercase tracking-[0.3em] text-xs">Expertises</span>
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-4">Des solutions pour <br/>votre croissance.</h2>
+                <span className="text-[#623ebd] font-black uppercase tracking-[0.3em] text-xs">Services</span>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-4">Services</h2>
+                <h3 className="text-lg md:text-2xl font-black tracking-tight mt-6 text-slate-700">
+                  Des solutions pour <br /> votre croissance.
+                </h3>
               </div>
             </Reveal>
 
@@ -360,7 +363,10 @@ export default function App() {
             <div className="lg:w-1/2">
               <Reveal>
                 <Badge color="green">Investissement</Badge>
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8 text-white">Tarifs clairs. <br/>Zéro surprise.</h2>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8 text-white">Pourquoi nous choisir</h2>
+                <h3 className="text-2xl md:text-3xl font-black tracking-tighter mb-8 text-white/90">
+                  Tarifs clairs. <br /> Zéro surprise.
+                </h3>
                 <p className="text-xl text-white/60 leading-relaxed mb-10">
                   Parce que vous avez besoin de budgetiser votre croissance. Nous proposons des packs tout inclus, de la conception à l'hébergement sécurisé en Suisse.
                 </p>
@@ -399,7 +405,10 @@ export default function App() {
         <section id="contact" className="py-32 bg-[#3b1b8b] relative overflow-hidden px-6">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
             <Reveal>
-              <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 text-white">Prêt à changer <br/>de dimension ?</h2>
+              <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 text-white">Devis</h2>
+              <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-8 text-white/90">
+                Prêt à changer <br /> de dimension ?
+              </h3>
               <p className="text-xl text-white/70 mb-12 max-w-lg leading-relaxed">
                 Utilisez notre assistant pour configurer votre projet en 30 secondes. <br/>Réponse personnalisée sous 24h.
               </p>
