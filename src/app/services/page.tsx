@@ -1,9 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback, memo } from 'react'
-import Image from 'next/image'
 
-// --- DATA (externe pour éviter les re-renders) ---
+// --- Données externes ---
 const NAV_LINKS = [
   { id: 'home', label: 'Accueil' },
   { id: 'services', label: 'Services' },
@@ -115,78 +114,77 @@ const PILIERS = [
   },
 ]
 
-// --- ICÔNES mémorisées ---
+// Projets "En coulisses" – utilisés pour le filtrage
+const BEHIND_SCENES_PROJECTS = [
+  { id: 1, title: 'Site Vitrine PME (En cours)', client: 'Client Confidentiel', type: 'Création Web', tags: ['Next.js', 'Design', 'SEO'], color: '#1d4ed8' },
+  { id: 2, title: 'Refonte E-commerce (En cours)', client: 'Boutique Suisse', type: 'E-commerce', tags: ['Shopify', 'UX/UI'], color: '#f59e0b' },
+  { id: 3, title: 'Nouvelle Identité Visuelle', client: 'Startup Locale', type: 'Branding', tags: ['Logo', 'Charte Graphique'], color: '#1e3a8a' },
+]
+
+const FILTER_OPTIONS = ['Tous', 'Création Web', 'E-commerce', 'Branding']
+
+// --- Icônes optimisées (composants statiques mémoisés) ---
 const Icons = {
-  arrowRight: (size = 24, className = '') => (
+  arrowRight: ({ size = 24, className = '' }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <line x1="5" y1="12" x2="19" y2="12" />
       <polyline points="12 5 19 12 12 19" />
     </svg>
   ),
-  check: (size = 24, className = '') => (
+  check: ({ size = 24, className = '' }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <polyline points="20 6 9 17 4 12" />
     </svg>
   ),
-  menu: (size = 24, className = '') => (
+  menu: ({ size = 24, className = '' }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <line x1="3" y1="12" x2="21" y2="12" />
       <line x1="3" y1="6" x2="21" y2="6" />
       <line x1="3" y1="18" x2="21" y2="18" />
     </svg>
   ),
-  x: (size = 24, className = '') => (
+  x: ({ size = 24, className = '' }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>
   ),
-  quote: (size = 24, className = '') => (
+  quote: ({ size = 24, className = '' }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
       <path d="M3 21c3 0 7-1 7-8V5c0-1 0-2-2-2H4c-1 0-2 1-2 2v6c0 1 0 2 2 2h2v2c0 2-1 3-3 3zm14 0c3 0 7-1 7-8V5c0-1 0-2-2-2h-4c-1 0-2 1-2 2v6c0 1 0 2 2 2h2v2c0 2-1 3-3 3z" />
     </svg>
   ),
-  phone: (size = 24, className = '') => (
+  phone: ({ size = 24, className = '' }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   ),
-  mail: (size = 24, className = '') => (
+  mail: ({ size = 24, className = '' }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <rect x="2" y="4" width="20" height="16" rx="2" />
       <path d="M22 4L12 13 2 4" />
     </svg>
   ),
-  mapPin: (size = 24, className = '') => (
-    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 0 1 18 0z" />
-      <circle cx="12" cy="10" r="3" />
-    </svg>
-  ),
-  star: (size = 24, className = '') => (
-    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-    </svg>
-  ),
 }
 
 const Icon = memo(({ name, size = 24, className = '' }: { name: keyof typeof Icons; size?: number; className?: string }) => {
-  return Icons[name]?.(size, className) || null
+  const IconComponent = Icons[name]
+  return IconComponent ? <IconComponent size={size} className={className} /> : null
 })
 Icon.displayName = 'Icon'
 
-// --- COMPOSANTS OPTIMISÉS ---
+// --- Composant Badge ---
 const Badge = memo(({ children, color = 'purple' }: { children: React.ReactNode; color?: string }) => {
-  const styles = color === 'green' ? 'text-accent-400 border-accent-400' : 'text-white/60 border-white/20'
+  const colorClass = color === 'green' ? 'text-accent-400 border-accent-400' : 'text-white/60 border-white/20'
   return (
-    <span className={`inline-block px-4 py-1.5 border-2 rounded-none text-[10px] font-black uppercase tracking-[0.2em] mb-6 ${styles}`}>
+    <span className={`inline-block px-4 py-1.5 border-2 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] mb-6 ${colorClass}`}>
       {children}
     </span>
   )
 })
 Badge.displayName = 'Badge'
 
-// Hook personnalisé pour l'intersection observer
+// --- Hook Intersection Observer pour animations au scroll ---
 const useReveal = (threshold = 0.1) => {
   const [visible, setVisible] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -201,11 +199,7 @@ const useReveal = (threshold = 0.1) => {
       },
       { threshold }
     )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
+    if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [threshold])
 
@@ -214,7 +208,6 @@ const useReveal = (threshold = 0.1) => {
 
 const Reveal = memo(({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const { ref, visible } = useReveal()
-
   return (
     <div
       ref={ref}
@@ -229,23 +222,30 @@ const Reveal = memo(({ children, delay = 0 }: { children: React.ReactNode; delay
 })
 Reveal.displayName = 'Reveal'
 
+// --- Formulaire de contact avec envoi API ---
 const ContactForm = memo(() => {
-  const [step, setStep] = useState<'start' | 'success'>('start')
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  })
+  const [step, setStep] = useState<'start' | 'loading' | 'success' | 'error'>('start')
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!formData.name || !formData.email || !formData.message) return
-    setStep('success')
-    setFormData({ name: '', email: '', message: '' })
+    setStep('loading')
+    try {
+      // Simulation d'appel API – remplacez par votre endpoint réel
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Exemple avec fetch réel:
+      // await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData), headers: { 'Content-Type': 'application/json' } })
+      setStep('success')
+      setFormData({ name: '', email: '', message: '' })
+    } catch {
+      setStep('error')
+      setTimeout(() => setStep('start'), 2000)
+    }
   }
 
   return (
@@ -262,6 +262,7 @@ const ContactForm = memo(() => {
               value={formData.name}
               onChange={handleChange}
               className="w-full p-4 bg-slate-50 border-none focus:ring-2 focus:ring-brand-600 outline-none font-bold"
+              aria-label="Votre nom"
             />
             <input
               type="email"
@@ -270,6 +271,7 @@ const ContactForm = memo(() => {
               value={formData.email}
               onChange={handleChange}
               className="w-full p-4 bg-slate-50 border-none focus:ring-2 focus:ring-brand-600 outline-none font-bold"
+              aria-label="Votre email"
             />
             <textarea
               name="message"
@@ -278,6 +280,7 @@ const ContactForm = memo(() => {
               value={formData.message}
               onChange={handleChange}
               className="w-full p-4 bg-slate-50 border-none focus:ring-2 focus:ring-brand-600 outline-none font-bold resize-none"
+              aria-label="Votre message"
             />
             <button
               onClick={handleSubmit}
@@ -289,7 +292,12 @@ const ContactForm = memo(() => {
           </div>
         </div>
       )}
-
+      {step === 'loading' && (
+        <div className="text-center">
+          <div className="inline-block w-8 h-8 border-4 border-brand-600 border-t-transparent rounded-full animate-spin" />
+          <p className="mt-4 font-bold">Envoi en cours...</p>
+        </div>
+      )}
       {step === 'success' && (
         <div className="text-center space-y-6 animate-in fade-in duration-500">
           <div className="w-20 h-20 bg-accent-500 text-[#3b1b8b] rounded-full flex items-center justify-center mx-auto">
@@ -301,14 +309,16 @@ const ContactForm = memo(() => {
             Réponse garantie sous 24h.
           </p>
           <button
-            onClick={() => {
-              setStep('start')
-              setFormData({ name: '', email: '', message: '' })
-            }}
-            className="px-6 py-2 border-2 border-slate-200 font-bold text-slate-400 hover:text-brand-600 transition-colors"
+            onClick={() => setStep('start')}
+            className="px-6 py-2 border border-slate-200 font-bold text-slate-400 hover:text-brand-600 transition-colors"
           >
             Fermer
           </button>
+        </div>
+      )}
+      {step === 'error' && (
+        <div className="text-center text-red-600 font-bold">
+          Une erreur est survenue. Veuillez réessayer.
         </div>
       )}
     </div>
@@ -316,60 +326,44 @@ const ContactForm = memo(() => {
 })
 ContactForm.displayName = 'ContactForm'
 
-// Hook personnalisé pour le scroll
+// --- Hooks personnalisés ---
 const useScrollHandler = () => {
   const [scrolled, setScrolled] = useState(false)
-
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
   return scrolled
 }
 
-// Hook personnalisé pour le preloader
-const usePreloader = (duration = 2000) => {
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), duration)
-    return () => clearTimeout(timer)
-  }, [duration])
-
-  return loading
+// Fonction de scroll avec offset pour le header fixe
+const scrollToElement = (id: string, offset = 80) => {
+  const el = document.getElementById(id)
+  if (el) {
+    const y = el.getBoundingClientRect().top + window.scrollY - offset
+    window.scrollTo({ top: y, behavior: 'smooth' })
+  }
 }
 
 // --- PAGE PRINCIPALE ---
 export default function HomePage() {
-  const loading = usePreloader(2000)
   const scrolled = useScrollHandler()
   const [menuOpen, setMenuOpen] = useState(false)
   const [filter, setFilter] = useState('Tous')
 
   const scrollTo = useCallback((id: string) => {
-    const el = document.getElementById(id)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-      setMenuOpen(false)
-    }
+    scrollToElement(id)
+    setMenuOpen(false)
   }, [])
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
 
-  if (loading) {
-    return (
-      <div className="fixed inset-0 bg-brand-900 flex items-center justify-center z-50">
-        <div className="loading-circle lc1"></div>
-        <div className="loading-circle lc2"></div>
-        <div className="loading-circle lc3"></div>
-        <div className="absolute text-white font-black text-2xl tracking-[0.5em] z-10">CLICOM</div>
-      </div>
-    )
-  }
+  const filteredProjects = BEHIND_SCENES_PROJECTS.filter(project =>
+    filter === 'Tous' ? true : project.type === filter
+  )
 
   return (
     <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-500 selection:text-[#3b1b8b]">
@@ -378,9 +372,11 @@ export default function HomePage() {
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           scrolled ? 'bg-white/95 backdrop-blur-md py-3 shadow-xl' : 'bg-transparent py-6'
         }`}
+        role="navigation"
+        aria-label="Navigation principale"
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <button onClick={scrollToTop} className="flex items-center gap-3 cursor-pointer group">
+          <button onClick={scrollToTop} className="flex items-center gap-3 cursor-pointer group" aria-label="Retour en haut">
             <div
               className={`w-9 h-9 flex items-center justify-center font-black text-lg transition-all duration-500 ${
                 scrolled ? 'bg-brand-600 text-white' : 'bg-white text-brand-600'
@@ -417,7 +413,11 @@ export default function HomePage() {
             </button>
           </div>
 
-          <button className="lg:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+          <button
+            className="lg:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          >
             <Icon name={menuOpen ? 'x' : 'menu'} className={scrolled ? 'text-slate-900' : 'text-white'} />
           </button>
         </div>
@@ -425,7 +425,11 @@ export default function HomePage() {
 
       {/* MENU MOBILE */}
       {menuOpen && (
-        <div className="fixed inset-0 z-[45] bg-brand-900 flex flex-col items-center justify-center space-y-8 lg:hidden animate-in slide-in-from-top duration-300">
+        <div
+          className="fixed inset-0 z-[45] bg-brand-900 flex flex-col items-center justify-center space-y-8 lg:hidden animate-in slide-in-from-top duration-300"
+          role="dialog"
+          aria-label="Menu mobile"
+        >
           {NAV_LINKS.map((link) => (
             <button
               key={link.id}
@@ -447,14 +451,11 @@ export default function HomePage() {
       <main>
         {/* HERO */}
         <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-          <div className="hero-bg-decor">
-            <div className="small-circles-wrapper">
-              <div className="small-circle" style={{ top: '15%', left: '20%' }} />
-              <div className="small-circle" style={{ top: '25%', left: '70%', animationDelay: '1s' }} />
-              <div className="small-circle" style={{ top: '70%', left: '10%', animationDelay: '2s' }} />
-              <div className="small-circle" style={{ top: '80%', left: '80%', animationDelay: '3s' }} />
-              <div className="small-circle" style={{ top: '40%', left: '45%', width: '450px', height: '450px', filter: 'blur(100px)', opacity: 0.2 }} />
-            </div>
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-[15%] left-[20%] w-[200px] h-[200px] bg-gradient-radial from-accent-400/10 to-transparent rounded-full animate-float" />
+            <div className="absolute top-[25%] left-[70%] w-[200px] h-[200px] bg-gradient-radial from-accent-400/10 to-transparent rounded-full animate-float animation-delay-1000" />
+            <div className="absolute top-[70%] left-[10%] w-[200px] h-[200px] bg-gradient-radial from-accent-400/10 to-transparent rounded-full animate-float animation-delay-2000" />
+            <div className="absolute top-[80%] left-[80%] w-[200px] h-[200px] bg-gradient-radial from-accent-400/10 to-transparent rounded-full animate-float animation-delay-3000" />
           </div>
 
           <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24">
@@ -534,7 +535,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* EN COULISSES */}
+        {/* EN COULISSES (avec filtrage fonctionnel) */}
         <section className="py-24 md:py-32 bg-slate-50 text-slate-900 px-6">
           <div className="max-w-7xl mx-auto">
             <Reveal>
@@ -549,7 +550,7 @@ export default function HomePage() {
 
             <Reveal delay={100}>
               <div className="flex flex-wrap justify-center gap-3 mb-12">
-                {['Tous', 'Création Web', 'E-commerce', 'Branding'].map((f) => (
+                {FILTER_OPTIONS.map((f) => (
                   <button
                     key={f}
                     onClick={() => setFilter(f)}
@@ -566,12 +567,8 @@ export default function HomePage() {
             </Reveal>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {[
-                { title: 'Site Vitrine PME (En cours)', client: 'Client Confidentiel', type: 'Création Web', tags: ['Next.js', 'Design', 'SEO'], color: '#1d4ed8' },
-                { title: 'Refonte E-commerce (En cours)', client: 'Boutique Suisse', type: 'E-commerce', tags: ['Shopify', 'UX/UI'], color: '#f59e0b' },
-                { title: 'Nouvelle Identité Visuelle', client: 'Startup Locale', type: 'Branding', tags: ['Logo', 'Charte Graphique'], color: '#1e3a8a' },
-              ].map((project, i) => (
-                <Reveal key={i} delay={i * 150}>
+              {filteredProjects.map((project, i) => (
+                <Reveal key={project.id} delay={i * 150}>
                   <div className="bg-white p-8 border-l-[8px] hover:shadow-xl transition-shadow" style={{ borderLeftColor: project.color }}>
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">En cours de création</p>
                     <p className="text-sm font-bold text-brand-600 mb-3">{project.client}</p>
@@ -588,6 +585,10 @@ export default function HomePage() {
               ))}
             </div>
 
+            {filteredProjects.length === 0 && (
+              <div className="text-center py-12 text-slate-400 font-bold">Aucun projet dans cette catégorie pour le moment.</div>
+            )}
+
             <Reveal delay={400}>
               <div className="text-center mt-12">
                 <p className="text-slate-400 font-bold text-sm">Faites partie des prochains</p>
@@ -602,7 +603,7 @@ export default function HomePage() {
             <Reveal>
               <div className="text-center mb-16">
                 <span className="text-brand-600 font-black uppercase tracking-[0.3em] text-xs">Nos 3 piliers</span>
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-4">Pourquoi CliCom</h2>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-4">Pourquoi CLICOM</h2>
               </div>
             </Reveal>
 
@@ -628,7 +629,7 @@ export default function HomePage() {
         </section>
 
         {/* TÉMOIGNAGES */}
-        <section className="py-24 md:py-32 bg-slate-950 px-6">
+        <section className="py-24 md:py-32 bg-slate-900 px-6">
           <div className="max-w-7xl mx-auto">
             <Reveal>
               <div className="text-center mb-16">
@@ -678,7 +679,6 @@ export default function HomePage() {
             </Reveal>
 
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {/* Site Web */}
               <Reveal delay={0}>
                 <div className="bg-slate-50 p-8 border-l-[8px] border-brand-600 hover:shadow-xl transition-shadow flex flex-col h-full">
                   <h3 className="text-2xl font-black mb-2">Site Web</h3>
@@ -699,7 +699,6 @@ export default function HomePage() {
                 </div>
               </Reveal>
 
-              {/* E-commerce */}
               <Reveal delay={150}>
                 <div className="bg-slate-50 p-8 border-l-[8px] border-accent-400 hover:shadow-xl transition-shadow flex flex-col h-full">
                   <h3 className="text-2xl font-black mb-2">E-commerce</h3>
@@ -720,7 +719,6 @@ export default function HomePage() {
                 </div>
               </Reveal>
 
-              {/* Marketing */}
               <Reveal delay={300}>
                 <div className="bg-slate-50 p-8 border-l-[8px] border-brand-600 hover:shadow-xl transition-shadow flex flex-col h-full">
                   <h3 className="text-2xl font-black mb-2">Marketing</h3>
@@ -781,7 +779,7 @@ export default function HomePage() {
         </section>
 
         {/* CONTACT */}
-        <section id="contact" className="py-24 md:py-32 bg-brand-900 px-6">
+        <section id="contact" className="py-24 md:py-32 bg-slate-900 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <Reveal>
@@ -827,7 +825,7 @@ export default function HomePage() {
       {/* FOOTER */}
       <footer className="py-12 bg-slate-900 text-white/60 px-6 border-t border-white/10">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="flex justify-center gap-8 mb-6">
+          <div className="flex justify-center gap-8 mb-6 flex-wrap">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.id}
@@ -844,45 +842,22 @@ export default function HomePage() {
         </div>
       </footer>
 
-      <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        .loading-circle {
-          position: absolute;
-          border: 3px solid rgba(255,255,255,0.1);
-          border-radius: 50%;
-          border-top: 3px solid #76FF03;
-          animation: spin 1s linear infinite;
-        }
-        .lc1 { width: 120px; height: 120px; }
-        .lc2 { width: 90px; height: 90px; animation-delay: 0.2s; }
-        .lc3 { width: 60px; height: 60px; animation-delay: 0.4s; }
-
-        .hero-bg-decor {
-          position: absolute;
-          inset: 0;
-          overflow: hidden;
-        }
-        .small-circle {
-          position: absolute;
-          width: 200px;
-          height: 200px;
-          background: radial-gradient(circle, rgba(118,255,3,0.1) 0%, rgba(118,255,3,0) 70%);
-          border-radius: 50%;
-          animation: float 6s ease-in-out infinite;
-        }
+      {/* Ajout des animations personnalisées via style global (nécessite que Tailwind les reconnaisse) */}
+      <style jsx global>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animation-delay-1000 { animation-delay: 1s; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-3000 { animation-delay: 3s; }
+        .bg-gradient-radial {
+          background: radial-gradient(circle, rgba(118,255,3,0.1) 0%, rgba(118,255,3,0) 70%);
         }
       `}</style>
     </div>
   )
 }
-
-
-
-
-
