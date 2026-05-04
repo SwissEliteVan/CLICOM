@@ -1,5 +1,4 @@
-@"
-import type { MetadataRoute } from 'next'
+﻿import type { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -11,6 +10,3 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: 'https://clicom.ch/sitemap.xml',
   }
 }
-"@ | Set-Content "src/app/robots.ts"
-
-Write-Host "robots.ts cree !" -ForegroundColor Green

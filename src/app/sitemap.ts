@@ -1,5 +1,4 @@
-@"
-import type { MetadataRoute } from 'next'
+﻿import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://clicom.ch'
@@ -12,31 +11,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/services`,
+      url: ${baseUrl}/services,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/blog`,
+      url: ${baseUrl}/blog,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/contact`,
+      url: ${baseUrl}/contact,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/devis`,
+      url: ${baseUrl}/devis,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
     },
   ]
 }
-"@ | Set-Content "src/app/sitemap.ts"
-
-Write-Host "sitemap.ts cree !" -ForegroundColor Green
