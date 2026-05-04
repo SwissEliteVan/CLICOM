@@ -177,7 +177,7 @@ Icon.displayName = 'Icon'
 
 // --- COMPOSANTS OPTIMISÉS ---
 const Badge = memo(({ children, color = 'purple' }: { children: React.ReactNode; color?: string }) => {
-  const styles = color === 'green' ? 'text-[#76FF03] border-[#76FF03]' : 'text-white/60 border-white/20'
+  const styles = color === 'green' ? 'text-accent-400 border-accent-400' : 'text-white/60 border-white/20'
   return (
     <span className={`inline-block px-4 py-1.5 border-2 rounded-none text-[10px] font-black uppercase tracking-[0.2em] mb-6 ${styles}`}>
       {children}
@@ -261,7 +261,7 @@ const ContactForm = memo(() => {
               placeholder="Nom"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-4 bg-slate-50 border-none focus:ring-2 focus:ring-[#623ebd] outline-none font-bold"
+              className="w-full p-4 bg-slate-50 border-none focus:ring-2 focus:ring-brand-600 outline-none font-bold"
             />
             <input
               type="email"
@@ -269,7 +269,7 @@ const ContactForm = memo(() => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-4 bg-slate-50 border-none focus:ring-2 focus:ring-[#623ebd] outline-none font-bold"
+              className="w-full p-4 bg-slate-50 border-none focus:ring-2 focus:ring-brand-600 outline-none font-bold"
             />
             <textarea
               name="message"
@@ -277,12 +277,12 @@ const ContactForm = memo(() => {
               rows={4}
               value={formData.message}
               onChange={handleChange}
-              className="w-full p-4 bg-slate-50 border-none focus:ring-2 focus:ring-[#623ebd] outline-none font-bold resize-none"
+              className="w-full p-4 bg-slate-50 border-none focus:ring-2 focus:ring-brand-600 outline-none font-bold resize-none"
             />
             <button
               onClick={handleSubmit}
               disabled={!formData.name || !formData.email || !formData.message}
-              className="w-full py-4 bg-[#623ebd] text-white font-black text-lg hover:bg-[#3b1b8b] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-brand-600 text-white font-black text-lg hover:bg-brand-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               ENVOYER LE MESSAGE
             </button>
@@ -292,7 +292,7 @@ const ContactForm = memo(() => {
 
       {step === 'success' && (
         <div className="text-center space-y-6 animate-in fade-in duration-500">
-          <div className="w-20 h-20 bg-[#76FF03] text-[#3b1b8b] rounded-full flex items-center justify-center mx-auto">
+          <div className="w-20 h-20 bg-accent-500 text-[#3b1b8b] rounded-full flex items-center justify-center mx-auto">
             <Icon name="check" size={40} />
           </div>
           <h3 className="text-3xl font-black">Message envoyé !</h3>
@@ -305,7 +305,7 @@ const ContactForm = memo(() => {
               setStep('start')
               setFormData({ name: '', email: '', message: '' })
             }}
-            className="px-6 py-2 border-2 border-slate-200 font-bold text-slate-400 hover:text-[#623ebd] transition-colors"
+            className="px-6 py-2 border-2 border-slate-200 font-bold text-slate-400 hover:text-brand-600 transition-colors"
           >
             Fermer
           </button>
@@ -362,7 +362,7 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 bg-[#3b1b8b] flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-brand-900 flex items-center justify-center z-50">
         <div className="loading-circle lc1"></div>
         <div className="loading-circle lc2"></div>
         <div className="loading-circle lc3"></div>
@@ -372,7 +372,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#3b1b8b] text-white selection:bg-[#76FF03] selection:text-[#3b1b8b]">
+    <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-500 selection:text-[#3b1b8b]">
       {/* NAVIGATION */}
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
@@ -383,7 +383,7 @@ export default function HomePage() {
           <button onClick={scrollToTop} className="flex items-center gap-3 cursor-pointer group">
             <div
               className={`w-9 h-9 flex items-center justify-center font-black text-lg transition-all duration-500 ${
-                scrolled ? 'bg-[#623ebd] text-white' : 'bg-white text-[#623ebd]'
+                scrolled ? 'bg-brand-600 text-white' : 'bg-white text-brand-600'
               }`}
             >
               C
@@ -403,7 +403,7 @@ export default function HomePage() {
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
                 className={`text-[11px] font-black uppercase tracking-widest transition-colors ${
-                  scrolled ? 'text-slate-500 hover:text-[#623ebd]' : 'text-white/70 hover:text-white'
+                  scrolled ? 'text-slate-500 hover:text-brand-600' : 'text-white/70 hover:text-white'
                 }`}
               >
                 {link.label}
@@ -411,7 +411,7 @@ export default function HomePage() {
             ))}
             <button
               onClick={() => scrollTo('contact')}
-              className="px-6 py-2.5 font-black text-[11px] uppercase tracking-widest transition-all bg-[#623ebd] text-white shadow-lg hover:bg-[#3b1b8b]"
+              className="px-6 py-2.5 font-black text-[11px] uppercase tracking-widest transition-all bg-brand-600 text-white shadow-lg hover:bg-brand-900"
             >
               Démarrer un projet
             </button>
@@ -425,18 +425,18 @@ export default function HomePage() {
 
       {/* MENU MOBILE */}
       {menuOpen && (
-        <div className="fixed inset-0 z-[45] bg-[#3b1b8b] flex flex-col items-center justify-center space-y-8 lg:hidden animate-in slide-in-from-top duration-300">
+        <div className="fixed inset-0 z-[45] bg-brand-900 flex flex-col items-center justify-center space-y-8 lg:hidden animate-in slide-in-from-top duration-300">
           {NAV_LINKS.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
-              className="text-2xl font-black uppercase tracking-widest text-white hover:text-[#76FF03] transition-colors"
+              className="text-2xl font-black uppercase tracking-widest text-white hover:text-accent-400 transition-colors"
             >
               {link.label}
             </button>
           ))}
           <button
-            className="px-10 py-4 bg-[#76FF03] text-[#3b1b8b] font-black uppercase tracking-widest hover:scale-105 transition-transform"
+            className="px-10 py-4 bg-accent-500 text-[#3b1b8b] font-black uppercase tracking-widest hover:scale-105 transition-transform"
             onClick={() => scrollTo('contact')}
           >
             Démarrer un projet
@@ -461,29 +461,29 @@ export default function HomePage() {
             <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000">
               <Badge color="green">Agence digitale — Suisse romande</Badge>
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-none mb-6 tracking-tighter">
-                Agence digitale <br /> pour PME en <span className="text-[#76FF03]">Suisse romande</span>
+                Agence digitale <br /> pour PME en <span className="text-accent-400">Suisse romande</span>
               </h1>
               <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-10 font-medium leading-relaxed">
                 Nous propulsons votre PME suisse avec des sites web professionnels, des identités visuelles et des stratégies de visibilité digitale qui génèrent du chiffre d&apos;affaires.
               </p>
               <div className="flex flex-wrap justify-center gap-8 mb-12">
                 <div className="text-center">
-                  <div className="text-3xl font-black text-[#76FF03]">98%</div>
+                  <div className="text-3xl font-black text-accent-400">98%</div>
                   <div className="text-xs font-bold uppercase tracking-widest text-white/60">Satisfaction</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-black text-[#76FF03]">&lt;24h</div>
+                  <div className="text-3xl font-black text-accent-400">&lt;24h</div>
                   <div className="text-xs font-bold uppercase tracking-widest text-white/60">Réponse</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-black text-[#76FF03]">50+</div>
+                  <div className="text-3xl font-black text-accent-400">50+</div>
                   <div className="text-xs font-bold uppercase tracking-widest text-white/60">Projets livrés</div>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={() => scrollTo('services')}
-                  className="px-8 py-4 bg-[#76FF03] text-[#3b1b8b] font-black text-base hover:scale-105 transition-transform shadow-2xl"
+                  className="px-8 py-4 bg-accent-500 text-[#3b1b8b] font-black text-base hover:scale-105 transition-transform shadow-2xl"
                 >
                   DÉCOUVRIR NOS SERVICES
                 </button>
@@ -509,7 +509,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <Reveal>
               <div className="text-center mb-16">
-                <span className="text-[#623ebd] font-black uppercase tracking-[0.3em] text-xs">Nos services</span>
+                <span className="text-brand-600 font-black uppercase tracking-[0.3em] text-xs">Nos services</span>
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-4">Ce que nous créons pour vous</h2>
               </div>
             </Reveal>
@@ -517,12 +517,12 @@ export default function HomePage() {
             <div className="grid md:grid-cols-2 gap-8">
               {SERVICES_DATA.map((s, i) => (
                 <Reveal key={s.id} delay={i * 100}>
-                  <div className="p-8 md:p-10 bg-slate-50 border-l-[8px] border-[#623ebd] hover:shadow-xl transition-shadow h-full flex flex-col group">
-                    <h3 className="text-2xl font-black mb-4 group-hover:text-[#623ebd] transition-colors">{s.title}</h3>
+                  <div className="p-8 md:p-10 bg-slate-50 border-l-[8px] border-brand-600 hover:shadow-xl transition-shadow h-full flex flex-col group">
+                    <h3 className="text-2xl font-black mb-4 group-hover:text-brand-600 transition-colors">{s.title}</h3>
                     <p className="text-slate-500 mb-6 font-medium leading-relaxed flex-grow">{s.desc}</p>
                     <div className="flex flex-wrap gap-2">
                       {s.tags.map((tag) => (
-                        <span key={tag} className="px-3 py-1 bg-[#623ebd]/10 text-[#623ebd] text-[10px] font-black uppercase tracking-wider">
+                        <span key={tag} className="px-3 py-1 bg-brand-600/10 text-brand-600 text-[10px] font-black uppercase tracking-wider">
                           {tag}
                         </span>
                       ))}
@@ -539,7 +539,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <Reveal>
               <div className="text-center mb-16">
-                <span className="text-[#623ebd] font-black uppercase tracking-[0.3em] text-xs">En Coulisses</span>
+                <span className="text-brand-600 font-black uppercase tracking-[0.3em] text-xs">En Coulisses</span>
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-4">Ce que nous préparons</h2>
                 <p className="text-lg text-slate-500 mt-4 max-w-2xl mx-auto">
                   L&apos;agence vient d&apos;ouvrir ses portes, mais nos claviers chauffent déjà ! Voici un aperçu des projets sur lesquels nous travaillons actuellement.
@@ -555,8 +555,8 @@ export default function HomePage() {
                     onClick={() => setFilter(f)}
                     className={`px-5 py-2 text-[11px] font-black uppercase tracking-widest transition-all ${
                       filter === f
-                        ? 'bg-[#623ebd] text-white'
-                        : 'bg-white text-slate-400 hover:text-[#623ebd] border border-slate-200'
+                        ? 'bg-brand-600 text-white'
+                        : 'bg-white text-slate-400 hover:text-brand-600 border border-slate-200'
                     }`}
                   >
                     {f}
@@ -567,14 +567,14 @@ export default function HomePage() {
 
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { title: 'Site Vitrine PME (En cours)', client: 'Client Confidentiel', type: 'Création Web', tags: ['Next.js', 'Design', 'SEO'], color: '#623ebd' },
-                { title: 'Refonte E-commerce (En cours)', client: 'Boutique Suisse', type: 'E-commerce', tags: ['Shopify', 'UX/UI'], color: '#76FF03' },
-                { title: 'Nouvelle Identité Visuelle', client: 'Startup Locale', type: 'Branding', tags: ['Logo', 'Charte Graphique'], color: '#3b1b8b' },
+                { title: 'Site Vitrine PME (En cours)', client: 'Client Confidentiel', type: 'Création Web', tags: ['Next.js', 'Design', 'SEO'], color: '#1d4ed8' },
+                { title: 'Refonte E-commerce (En cours)', client: 'Boutique Suisse', type: 'E-commerce', tags: ['Shopify', 'UX/UI'], color: '#f59e0b' },
+                { title: 'Nouvelle Identité Visuelle', client: 'Startup Locale', type: 'Branding', tags: ['Logo', 'Charte Graphique'], color: '#1e3a8a' },
               ].map((project, i) => (
                 <Reveal key={i} delay={i * 150}>
                   <div className="bg-white p-8 border-l-[8px] hover:shadow-xl transition-shadow" style={{ borderLeftColor: project.color }}>
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">En cours de création</p>
-                    <p className="text-sm font-bold text-[#623ebd] mb-3">{project.client}</p>
+                    <p className="text-sm font-bold text-brand-600 mb-3">{project.client}</p>
                     <h3 className="text-xl font-black mb-4">{project.title}</h3>
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
@@ -601,7 +601,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <Reveal>
               <div className="text-center mb-16">
-                <span className="text-[#623ebd] font-black uppercase tracking-[0.3em] text-xs">Nos 3 piliers</span>
+                <span className="text-brand-600 font-black uppercase tracking-[0.3em] text-xs">Nos 3 piliers</span>
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-4">Pourquoi CliCom</h2>
               </div>
             </Reveal>
@@ -610,12 +610,12 @@ export default function HomePage() {
               {PILIERS.map((p, i) => (
                 <Reveal key={p.id} delay={i * 150}>
                   <div className="text-center p-8">
-                    <div className="text-7xl font-black text-[#623ebd]/10 mb-6">{p.number}</div>
+                    <div className="text-7xl font-black text-brand-600/10 mb-6">{p.number}</div>
                     <h3 className="text-2xl font-black mb-4">{p.title}</h3>
                     <p className="text-slate-500 font-medium leading-relaxed mb-6">{p.desc}</p>
                     <div className="flex flex-wrap justify-center gap-2">
                       {p.tags.map((tag) => (
-                        <span key={tag} className="px-3 py-1 bg-[#623ebd]/10 text-[#623ebd] text-[10px] font-black uppercase tracking-wider">
+                        <span key={tag} className="px-3 py-1 bg-brand-600/10 text-brand-600 text-[10px] font-black uppercase tracking-wider">
                           {tag}
                         </span>
                       ))}
@@ -644,12 +644,12 @@ export default function HomePage() {
               {TESTIMONIALS.map((t, i) => (
                 <Reveal key={t.id} delay={i * 150}>
                   <div className="bg-white/5 p-8 border border-white/10 h-full flex flex-col hover:bg-white/10 transition-colors">
-                    <div className="text-[#76FF03] mb-4">
+                    <div className="text-accent-400 mb-4">
                       <Icon name="quote" size={24} />
                     </div>
                     <p className="text-white/80 font-medium leading-relaxed mb-6 flex-grow">"{t.text}"</p>
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="w-10 h-10 rounded-full bg-[#623ebd] flex items-center justify-center font-black text-sm">
+                      <div className="w-10 h-10 rounded-full bg-brand-600 flex items-center justify-center font-black text-sm">
                         {t.initials}
                       </div>
                       <div>
@@ -658,7 +658,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     <div className="pt-4 border-t border-white/10">
-                      <span className="text-[#76FF03] font-black text-lg">{t.result}</span>
+                      <span className="text-accent-400 font-black text-lg">{t.result}</span>
                     </div>
                   </div>
                 </Reveal>
@@ -672,7 +672,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <Reveal>
               <div className="text-center mb-16">
-                <span className="text-[#623ebd] font-black uppercase tracking-[0.3em] text-xs">Tarifs transparents</span>
+                <span className="text-brand-600 font-black uppercase tracking-[0.3em] text-xs">Tarifs transparents</span>
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-4">Jusqu&apos;à 5× moins cher que le marché</h2>
               </div>
             </Reveal>
@@ -680,20 +680,20 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {/* Site Web */}
               <Reveal delay={0}>
-                <div className="bg-slate-50 p-8 border-l-[8px] border-[#623ebd] hover:shadow-xl transition-shadow flex flex-col h-full">
+                <div className="bg-slate-50 p-8 border-l-[8px] border-brand-600 hover:shadow-xl transition-shadow flex flex-col h-full">
                   <h3 className="text-2xl font-black mb-2">Site Web</h3>
-                  <div className="text-5xl font-black text-[#623ebd] mb-2">1&apos;800<span className="text-lg text-slate-400">CHF</span></div>
+                  <div className="text-5xl font-black text-brand-600 mb-2">1&apos;800<span className="text-lg text-slate-400">CHF</span></div>
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">paiement unique</p>
-                  <p className="text-xs font-bold text-[#76FF03] mb-8">Le marché facture 2&apos;000–6&apos;000 CHF</p>
+                  <p className="text-xs font-bold text-accent-400 mb-8">Le marché facture 2&apos;000–6&apos;000 CHF</p>
                   <ul className="space-y-3 mb-8 flex-grow">
                     {['Design premium sur mesure', 'SEO de base inclus', 'Formulaire de contact', 'Hébergement 1 an offert', 'Responsive mobile & tablette', 'Livraison en 3 semaines'].map((feat) => (
                       <li key={feat} className="flex items-start gap-3 text-sm font-medium text-slate-600">
-                        <Icon name="check" size={16} className="text-[#76FF03] mt-0.5 flex-shrink-0" />
+                        <Icon name="check" size={16} className="text-accent-400 mt-0.5 flex-shrink-0" />
                         {feat}
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => scrollTo('contact')} className="w-full py-4 bg-[#623ebd] text-white font-black text-sm hover:bg-[#3b1b8b] transition-all">
+                  <button onClick={() => scrollTo('contact')} className="w-full py-4 bg-brand-600 text-white font-black text-sm hover:bg-brand-900 transition-all">
                     Démarrer mon projet
                   </button>
                 </div>
@@ -701,20 +701,20 @@ export default function HomePage() {
 
               {/* E-commerce */}
               <Reveal delay={150}>
-                <div className="bg-slate-50 p-8 border-l-[8px] border-[#76FF03] hover:shadow-xl transition-shadow flex flex-col h-full">
+                <div className="bg-slate-50 p-8 border-l-[8px] border-accent-400 hover:shadow-xl transition-shadow flex flex-col h-full">
                   <h3 className="text-2xl font-black mb-2">E-commerce</h3>
-                  <div className="text-5xl font-black text-[#623ebd] mb-2">3&apos;900<span className="text-lg text-slate-400">CHF</span></div>
+                  <div className="text-5xl font-black text-brand-600 mb-2">3&apos;900<span className="text-lg text-slate-400">CHF</span></div>
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">paiement unique</p>
-                  <p className="text-xs font-bold text-[#76FF03] mb-8">Le marché facture 5&apos;000–15&apos;000 CHF</p>
+                  <p className="text-xs font-bold text-accent-400 mb-8">Le marché facture 5&apos;000–15&apos;000 CHF</p>
                   <ul className="space-y-3 mb-8 flex-grow">
                     {['Boutique en ligne complète', 'Gestion des stocks', 'Paiements sécurisés', 'SEO avancé', 'Design responsive', 'Support 30 jours'].map((feat) => (
                       <li key={feat} className="flex items-start gap-3 text-sm font-medium text-slate-600">
-                        <Icon name="check" size={16} className="text-[#76FF03] mt-0.5 flex-shrink-0" />
+                        <Icon name="check" size={16} className="text-accent-400 mt-0.5 flex-shrink-0" />
                         {feat}
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => scrollTo('contact')} className="w-full py-4 bg-[#623ebd] text-white font-black text-sm hover:bg-[#3b1b8b] transition-all">
+                  <button onClick={() => scrollTo('contact')} className="w-full py-4 bg-brand-600 text-white font-black text-sm hover:bg-brand-900 transition-all">
                     Démarrer mon projet
                   </button>
                 </div>
@@ -722,20 +722,20 @@ export default function HomePage() {
 
               {/* Marketing */}
               <Reveal delay={300}>
-                <div className="bg-slate-50 p-8 border-l-[8px] border-[#623ebd] hover:shadow-xl transition-shadow flex flex-col h-full">
+                <div className="bg-slate-50 p-8 border-l-[8px] border-brand-600 hover:shadow-xl transition-shadow flex flex-col h-full">
                   <h3 className="text-2xl font-black mb-2">Marketing</h3>
-                  <div className="text-5xl font-black text-[#623ebd] mb-2">Sur<span className="text-lg text-slate-400">devis</span></div>
+                  <div className="text-5xl font-black text-brand-600 mb-2">Sur<span className="text-lg text-slate-400">devis</span></div>
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">stratégie personnalisée</p>
-                  <p className="text-xs font-bold text-[#76FF03] mb-8">Des résultats mesurables garantis</p>
+                  <p className="text-xs font-bold text-accent-400 mb-8">Des résultats mesurables garantis</p>
                   <ul className="space-y-3 mb-8 flex-grow">
                     {['Stratégie sur mesure', 'Campagnes publicitaires', 'Gestion des réseaux', 'Reporting mensuel', 'Optimisation continue', 'Support dédié'].map((feat) => (
                       <li key={feat} className="flex items-start gap-3 text-sm font-medium text-slate-600">
-                        <Icon name="check" size={16} className="text-[#76FF03] mt-0.5 flex-shrink-0" />
+                        <Icon name="check" size={16} className="text-accent-400 mt-0.5 flex-shrink-0" />
                         {feat}
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => scrollTo('contact')} className="w-full py-4 bg-[#623ebd] text-white font-black text-sm hover:bg-[#3b1b8b] transition-all">
+                  <button onClick={() => scrollTo('contact')} className="w-full py-4 bg-brand-600 text-white font-black text-sm hover:bg-brand-900 transition-all">
                     Demander un devis
                   </button>
                 </div>
@@ -749,7 +749,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <Reveal>
               <div className="text-center mb-16">
-                <span className="text-[#623ebd] font-black uppercase tracking-[0.3em] text-xs">Blog & Actus</span>
+                <span className="text-brand-600 font-black uppercase tracking-[0.3em] text-xs">Blog & Actus</span>
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-4">Derniers articles</h2>
               </div>
             </Reveal>
@@ -759,17 +759,17 @@ export default function HomePage() {
                 <Reveal key={post.id} delay={i * 150}>
                   <article className="bg-white p-8 hover:shadow-xl transition-all cursor-pointer">
                     <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest mb-4">
-                      <span className="text-[#623ebd]">{post.category}</span>
+                      <span className="text-brand-600">{post.category}</span>
                       <span className="text-slate-300">•</span>
                       <span className="text-slate-400">{post.date}</span>
                     </div>
-                    <h3 className="text-xl font-black mb-4 leading-tight hover:text-[#623ebd] transition-colors">
+                    <h3 className="text-xl font-black mb-4 leading-tight hover:text-brand-600 transition-colors">
                       {post.title}
                     </h3>
                     <p className="text-slate-500 font-medium leading-relaxed mb-6">
                       {post.excerpt}
                     </p>
-                    <button className="text-[#623ebd] font-black text-[11px] uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all">
+                    <button className="text-brand-600 font-black text-[11px] uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all">
                       Lire la suite
                       <Icon name="arrowRight" size={14} />
                     </button>
@@ -781,7 +781,7 @@ export default function HomePage() {
         </section>
 
         {/* CONTACT */}
-        <section id="contact" className="py-24 md:py-32 bg-[#3b1b8b] px-6">
+        <section id="contact" className="py-24 md:py-32 bg-brand-900 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <Reveal>
@@ -881,4 +881,8 @@ export default function HomePage() {
     </div>
   )
 }
+
+
+
+
 
