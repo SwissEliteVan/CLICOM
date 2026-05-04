@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 interface ContactFormData {
   nom: string
@@ -42,15 +44,7 @@ export default function ContactPage() {
   return (
     <>
       <div className="min-h-screen bg-white">
-        <nav className="bg-white shadow-soft sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center font-bold text-white">C</div>
-              <span className="font-bold text-xl text-slate-900">CLICOM</span>
-            </Link>
-            <Link href="/devis" className="px-6 py-3 bg-accent-500 text-white font-semibold rounded-xl hover:bg-accent-600 transition-all">Demander un devis</Link>
-          </div>
-        </nav>
+        <Navbar />
 
         <main className="py-24 md:py-32 px-6">
           <div className="max-w-4xl mx-auto">
@@ -139,7 +133,8 @@ export default function ContactPage() {
             </div>
           </div>
         </main>
-      </div>
+            <Footer />
+    </div>
     </>
   )
 }

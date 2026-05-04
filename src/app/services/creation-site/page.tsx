@@ -1,6 +1,8 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Creation et refonte de site internet | CLICOM',
@@ -10,18 +12,7 @@ export const metadata: Metadata = {
 export default function CreationSitePage() {
   return (
     <div className="min-h-screen bg-white">
-      <nav className="bg-white shadow-soft sticky top-0 z-50 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center font-bold text-white">C</div>
-            <span className="font-bold text-xl text-slate-900">CLICOM</span>
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link href="/services" className="text-sm text-slate-500 hover:text-brand-600 transition-colors">Services</Link>
-            <Link href="/devis" className="px-6 py-3 bg-accent-500 text-white font-semibold rounded-xl hover:bg-accent-600 transition-all">Demander un devis</Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <main className="py-24 md:py-32 px-6">
         <div className="max-w-5xl mx-auto">
@@ -60,6 +51,8 @@ export default function CreationSitePage() {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   )
 }

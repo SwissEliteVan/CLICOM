@@ -2,6 +2,8 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 // --- Types ---
 interface DevisFormData {
   prenom: string
@@ -278,19 +280,7 @@ export default function DevisPage() {
   return (
     <>
       <div className="min-h-screen bg-white">
-        <nav className="bg-white shadow-soft sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center font-bold text-white">
-                C
-              </div>
-              <span className="font-bold text-xl text-slate-900">CLICOM</span>
-            </Link>
-            <Link href="/" className="text-sm text-slate-500 hover:text-brand-600 transition-colors">
-              ← Retour à l'accueil
-            </Link>
-          </div>
-        </nav>
+        <Navbar />
 
         <main className="py-12 md:py-20 px-6">
           <div className="max-w-3xl mx-auto">
@@ -498,7 +488,8 @@ export default function DevisPage() {
             )}
           </div>
         </main>
-      </div>
+            <Footer />
+    </div>
     </>
   )
 }

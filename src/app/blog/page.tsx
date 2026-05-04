@@ -1,6 +1,8 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Blog | CLICOM Agence digitale',
@@ -31,7 +33,7 @@ const ARTICLES = [
     category: 'Marketing',
     date: '5 mars 2026',
     title: 'Attirer des clients sans prospection agressive',
-    excerpt: "Strategies concretes adaptees aux PME pour generer des leads qualifies durablement, sans demarchage.",
+    excerpt: 'Strategies concretes adaptees aux PME pour generer des leads qualifies durablement, sans demarchage.',
     image: '/images/marketing-croissance-abstrait-clicom.avif',
     alt: 'Strategies marketing pour generer des leads',
   },
@@ -40,16 +42,7 @@ const ARTICLES = [
 export default function BlogPage() {
   return (
     <div className="min-h-screen bg-white">
-      <nav className="bg-white shadow-soft sticky top-0 z-50 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center font-bold text-white">C</div>
-            <span className="font-bold text-xl text-slate-900">CLICOM</span>
-          </Link>
-          <Link href="/devis" className="px-6 py-3 bg-accent-500 text-white font-semibold rounded-xl hover:bg-accent-600 transition-all">Demander un devis</Link>
-        </div>
-      </nav>
-
+      <Navbar />
       <main className="py-24 md:py-32 px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -61,13 +54,7 @@ export default function BlogPage() {
             {ARTICLES.map((post) => (
               <article key={post.slug} className="bg-white rounded-2xl overflow-hidden hover:shadow-soft transition-all group">
                 <div className="relative h-48 w-full overflow-hidden">
-                  <Image
-                    src={post.image}
-                    alt={post.alt}
-                    fill
-                    sizes="(min-width: 768px) 33vw, 100vw"
-                    className="object-cover transition duration-500 group-hover:scale-105"
-                  />
+                  <Image src={post.image} alt={post.alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition duration-500 group-hover:scale-105" />
                 </div>
                 <div className="p-8">
                   <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider mb-4">
@@ -87,6 +74,7 @@ export default function BlogPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   )
 }
