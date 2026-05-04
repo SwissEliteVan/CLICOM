@@ -37,3 +37,4 @@ export const PILIERS: Pillar[] = [
     alt: 'Confiance et accompagnement de proximite pour PME suisses',
   },
 ]
+

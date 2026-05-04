@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -36,7 +36,7 @@ export default function HomePage() {
             src="/images/hero-agence-digitale-pme-suisse.webp"
             alt="agence digitale pour pme suisses clicom vevey"
             fill
-            className="object-cover z-0"
+            className="object-cover object-top z-0"
             priority
             sizes="100vw"
           />
@@ -272,3 +272,6 @@ export default function HomePage() {
     </div>
   )
 }
+
+
+
