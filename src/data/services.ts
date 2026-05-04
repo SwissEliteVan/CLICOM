@@ -42,7 +42,7 @@ export const SERVICES_DATA: Service[] = [
     desc: 'Support reactif, maintenance et conseils strategiques pour vous accompagner dans la duree.',
     tags: ['Support 7j/7', 'Maintenance', 'Conseil', 'Proximite'],
     href: '/services/strategie-digitale',
-    image: '/images/reunion-conseil-client-agence-digitale.avif',
-    alt: 'reunion conseil client agence digitale clicom',
+    image: '/images/support-maintenance-site-web-clicom.webp',
+    alt: 'support maintenance site web accompagnement continu clicom',
   },
 ]
