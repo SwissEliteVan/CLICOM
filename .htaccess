@@ -1,0 +1,154 @@
+# .htaccess pour hébergement partagé Hostinger (Apache)
+# Ce fichier est utilisé UNIQUEMENT si vous déployez en mode 'export' (static)
+# Pour un VPS avec Node.js, utilisez plutôt server.js avec PM2
+
+# ====================================================================
+# SÉCURITÉ
+# ====================================================================
+
+# Désactiver l'affichage des fichiers dans les répertoires
+Options -Indexes
+
+# Protéger les fichiers sensibles
+<FilesMatch "^\.(.env|env\.production|git|htaccess|htpasswd)">
+    Require all denied
+</FilesMatch>
+
+# Protéger les fichiers de configuration
+<FilesMatch "(package\.json|package-lock\.json|tsconfig\.json|next\.config\.(js|mjs)|ecosystem\.config\.js)$">
+    Require all denied
+</FilesMatch>
+
+# ====================================================================
+# COMPRESSION GZIP
+# ====================================================================
+
+<IfModule mod_deflate.c>
+    # Compresser HTML, CSS, JavaScript, Text, XML et fonts
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    
+    # Compresser les fonts
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ====================================================================
+# MISE EN CACHE DES RESSOURCES STATIQUES
+# ====================================================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/avif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # Fonts
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    
+    # CSS et JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    
+    # HTML (ne pas trop cacher)
+    ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# Headers de cache
+<IfModule mod_headers.c>
+    # Cache pour les assets statiques
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|svg|ico|css|js|woff|woff2|ttf|otf)$">
+        Header set Cache-Control "max-age=31536000, public, immutable"
+    </FilesMatch>
+    
+    # Pas de cache pour HTML
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    
+    # Sécurité
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ====================================================================
+# RÉÉCRITURE D'URL (pour SPA/Next.js static)
+# ====================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Ignorer les fichiers réels et les répertoires
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Rediriger toutes les requêtes vers index.html (SPA routing)
+    # Décommenter cette ligne UNIQUEMENT si vous utilisez output: 'export' (static)
+    # RewriteRule ^(.*)$ index.html [L]
+    
+    # Force HTTPS (recommandé en production)
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Redirection www vers non-www (ou inversement selon préférence)
+    # RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+
+# ====================================================================
+# ERREURS PERSONNALISÉES
+# ====================================================================
+
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+
+# ====================================================================
+# Type MIME pour les fichiers modernes
+# ====================================================================
+
+<IfModule mod_mime.c>
+    # JavaScript
+    AddType application/javascript js mjs
+    
+    # Fonts
+    AddType font/woff woff
+    AddType font/woff2 woff2
+    AddType font/ttf ttf
+    AddType font/otf otf
+    
+    # Images modernes
+    AddType image/webp webp
+    AddType image/avif avif
+    AddType image/svg+xml svg
+    
+    # Manifests
+    AddType application/manifest+json webmanifest
+    AddType application/json json
+</IfModule>
