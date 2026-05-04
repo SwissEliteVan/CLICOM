@@ -50,9 +50,9 @@ const NAV_LINKS: NavLink[] = [
   { id: 'home', label: 'Accueil', href: '/' },
   { id: 'services', label: 'Services', href: '/services' },
   { id: 'method', label: 'Methode', href: '/#method' },
-  { id: 'tarifs', label: 'Tarifs', href: '/devis' },
+  { id: 'tarifs', label: 'Tarifs', href: '/#tarifs' },
   { id: 'blog', label: 'Blog', href: '/blog' },
-  { id: 'contact', label: 'Contact', href: '/contact' },
+  { id: 'contact', label: 'Contact', href: '/#contact' },
 ]
 
 const SERVICES_DATA: Service[] = [
@@ -350,8 +350,8 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* 3 piliers */}
-          <section className="py-24 md:py-32 bg-slate-50 px-6">
+          {/* Méthode (Piliers) */}
+          <section id="method" className="py-24 md:py-32 bg-slate-50 px-6">
             <div className="max-w-7xl mx-auto">
               <Reveal><SectionTitle subtitle="Notre methode" title="Pourquoi choisir CLICOM ?" /></Reveal>
               <div className="grid md:grid-cols-3 gap-10">
@@ -370,7 +370,7 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* Temoignages */}
+          {/* Témoignages */}
           <section className="py-24 md:py-32 bg-brand-900 px-6">
             <div className="max-w-7xl mx-auto">
               <Reveal>
@@ -403,4 +403,92 @@ export default function HomePage() {
             <div className="max-w-7xl mx-auto">
               <Reveal><SectionTitle subtitle="Tarifs transparents" title="Jusqu'a 5 fois moins cher que le marche" /></Reveal>
               <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                {[{ title: 'Site Web', price: "1'800 CHF", sub: 'paiement unique', features: ['Design sur mesure', 'SEO de base inclus', 'Formulaire
+                {[
+                  { title: 'Site Web', price: "1'800 CHF", sub: 'paiement unique', features: ['Design sur mesure', 'SEO de base inclus', 'Formulaire de contact', 'Responsive mobile'] },
+                  { title: 'SEO & Visibilite', price: "Dès 400 CHF", sub: '/ mois', features: ['Optimisation locale', 'Google My Business', 'Creation de contenu', 'Rapport mensuel'] },
+                  { title: 'E-commerce', price: "Sur devis", sub: 'paiement unique', features: ['Boutique complete', 'Paiements securises', 'Formation incluse', 'Support prioritaire'] }
+                ].map((plan, i) => (
+                  <Reveal key={i} delay={i * 100}>
+                    <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:border-brand-200 hover:shadow-soft transition-all h-full flex flex-col">
+                      <h3 className="text-xl font-bold text-slate-900 mb-2">{plan.title}</h3>
+                      <div className="text-3xl font-black text-brand-600 mb-2">{plan.price}</div>
+                      <p className="text-sm text-slate-500 mb-6">{plan.sub}</p>
+                      <ul className="space-y-3 mb-8 flex-grow">
+                        {plan.features.map(f => (
+                          <li key={f} className="flex items-start gap-3 text-slate-700 text-sm">
+                            <Icon name="check" size={18} className="text-accent-500 shrink-0 mt-0.5" />
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <Link href="/devis" className="w-full py-4 text-center bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:border-brand-600 hover:text-brand-600 transition-all">
+                        Demander un devis
+                      </Link>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Blog */}
+          <section id="blog" className="py-24 md:py-32 bg-slate-50 px-6">
+            <div className="max-w-7xl mx-auto">
+              <Reveal><SectionTitle subtitle="Notre blog" title="Dernieres actualites et conseils" /></Reveal>
+              <div className="grid md:grid-cols-3 gap-8">
+                {BLOG_POSTS.map((post, i) => (
+                  <Reveal key={post.id} delay={i * 100}>
+                    <div className="bg-white rounded-2xl overflow-hidden shadow-soft border border-slate-100 hover:border-brand-200 transition-all group h-full flex flex-col">
+                      <div className="p-8 flex flex-col h-full">
+                        <div className="flex items-center gap-4 mb-4">
+                          <span className="text-xs font-bold text-brand-600 uppercase tracking-widest">{post.category}</span>
+                          <span className="text-xs text-slate-400">{post.date}</span>
+                        </div>
+                        <h3 className="text-xl font-bold mb-4 text-slate-900 group-hover:text-brand-600 transition-colors">{post.title}</h3>
+                        <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{post.excerpt}</p>
+                        <Link href={post.href} className="inline-flex items-center gap-2 text-brand-600 font-bold text-sm group-hover:gap-4 transition-all">
+                          Lire l'article <Icon name="arrowRight" size={16} />
+                        </Link>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Contact */}
+          <section id="contact" className="py-24 md:py-32 bg-white px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <Reveal>
+                  <div className="space-y-8">
+                    <Badge>Contactez-nous</Badge>
+                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 leading-tight">Parlons de votre prochain <span className="text-brand-600">succès digital</span></h2>
+                    <p className="text-lg text-slate-600 leading-relaxed">Vous avez une question ou un projet ? Nous sommes là pour vous écouter et vous proposer la meilleure solution adaptée à votre PME.</p>
+                    <div className="space-y-6 pt-4">
+                      <div className="flex items-center gap-6 group">
+                        <div className="w-12 h-12 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-all"><Icon name="mail" size={24} /></div>
+                        <div><p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Email</p><a href="mailto:hello@clicom.ch" className="text-lg font-bold text-slate-900 hover:text-brand-600 transition-colors">hello@clicom.ch</a></div>
+                      </div>
+                      <div className="flex items-center gap-6 group">
+                        <div className="w-12 h-12 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-all"><Icon name="phone" size={24} /></div>
+                        <div><p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Téléphone</p><a href="tel:+41788238950" className="text-lg font-bold text-slate-900 hover:text-brand-600 transition-colors">078 823 89 50</a></div>
+                      </div>
+                      <div className="flex items-center gap-6 group">
+                        <div className="w-12 h-12 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-all"><Icon name="mapPin" size={24} /></div>
+                        <div><p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Localisation</p><p className="text-lg font-bold text-slate-900">Vevey, Suisse romande</p></div>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+                <Reveal delay={200}><ContactForm /></Reveal>
+              </div>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    </>
+  )
+}
