@@ -10,7 +10,7 @@ const SERVICES = [
     title: 'Sites web professionnels',
     desc: 'Creation de sites vitrines et e-commerce sur mesure avec un design moderne et une navigation fluide.',
     tags: ['Design sur mesure', 'Navigation fluide', 'Mobile-friendly'],
-    image: '/images/creation-site-web-pme-suisse-romande.webp',
+    image: '/images/service-creation-site-internet.webp',
     alt: 'creation site web professionnel clicom',
   },
   {
