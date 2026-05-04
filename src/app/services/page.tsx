@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback, memo } from 'react'
+import Image from 'next/image'
 
 // --- DATA (externe pour éviter les re-renders) ---
 const NAV_LINKS = [
@@ -880,3 +881,4 @@ export default function HomePage() {
     </div>
   )
 }
+

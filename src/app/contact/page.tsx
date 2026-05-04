@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import Image from 'next/image'
 
 interface ContactFormData {
   nom: string
@@ -147,3 +148,4 @@ export default function ContactPage() {
     </>
   )
 }
+
