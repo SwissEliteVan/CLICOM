@@ -67,8 +67,6 @@ const SERVICES_DATA: Service[] = [
     desc: 'Nous concevons des sites vitrines et e-commerce sur mesure, avec un design moderne et une navigation fluide.',
     tags: ['Design sur mesure', 'Navigation fluide', 'Mobile-friendly', 'Rapide'],
     href: '/services/creation-site',
-    image: '/images/creation-site-web-pme-suisse-romande.webp',
-    alt: 'creation site web professionnel pme suisse clicom',
   },
   {
     id: 2,
@@ -76,8 +74,6 @@ const SERVICES_DATA: Service[] = [
     desc: "Soyez trouve par vos clients. Nous optimisons votre site pour les moteurs de recherche et gerons vos campagnes publicitaires.",
     tags: ['Referencement local', 'Google Ads', 'Visibilite', 'Plus de clients'],
     href: '/services/seo',
-    image: '/images/referencement-seo-local-pme-suisse.webp',
-    alt: 'referencement seo local pour pme suisse clicom',
   },
   {
     id: 3,
@@ -85,8 +81,6 @@ const SERVICES_DATA: Service[] = [
     desc: "Votre marque merite une identite forte. Logo, charte graphique, supports de communication.",
     tags: ['Logo', 'Charte graphique', 'Cohérence', 'Professionnel'],
     href: '/services/ux-ui-design',
-    image: '/images/logo-clicom-agence-digitale-bleu.webp',
-    alt: 'logo clicom agence digitale identite visuelle',
   },
   {
     id: 4,
@@ -94,8 +88,6 @@ const SERVICES_DATA: Service[] = [
     desc: "Support reactif, maintenance et conseils strategiques pour vous accompagner dans la duree.",
     tags: ['Support 7j/7', 'Maintenance', 'Conseil', 'Proximite'],
     href: '/services/strategie-digitale',
-    image: '/images/reunion-conseil-client-agence-digitale.avif',
-    alt: 'reunion conseil client agence digitale clicom',
   },
 ]
 
@@ -106,9 +98,9 @@ const TESTIMONIALS: Testimonial[] = [
 ]
 
 const BLOG_POSTS: BlogPost[] = [
-  { id: 1, category: 'Site web', date: '25 mars 2026', title: "Pourquoi votre entreprise suisse a besoin d'un site internet en 2026", excerpt: "A l'ere du numerique, une presence en ligne professionnelle n'est plus optionnelle.", href: '/blog/pourquoi-site-web-2026', image: '/images/creation-site-internet-pme-suisse.avif', alt: 'site internet professionnel pme suisse clicom' },
-  { id: 2, category: 'Intelligence Artificielle', date: '14 mars 2026', title: "Comment l'intelligence artificielle peut aider votre PME", excerpt: "Decouvrez comment les PME peuvent utiliser ces outils pour gagner du temps.", href: '/blog/ia-pme', image: '/images/marketing-croissance-abstrait-clicom.avif', alt: 'marketing croissance abstrait clicom suisse romande' },
-  { id: 3, category: 'Marketing', date: '5 mars 2026', title: "Attirer des clients sans prospection agressive", excerpt: "Strategies concretes adaptees aux PME pour generer des leads durablement.", href: '/blog/attirer-clients-sans-prospection', image: '/images/transformation-digitale-geneve-reseau-entreprise.avif', alt: 'transformation digitale geneve reseau entreprise clicom' },
+  { id: 1, category: 'Site web', date: '25 mars 2026', title: "Pourquoi votre entreprise suisse a besoin d'un site internet en 2026", excerpt: "A l'ere du numerique, une presence en ligne professionnelle n'est plus optionnelle.", href: '/blog/pourquoi-site-web-2026' },
+  { id: 2, category: 'Intelligence Artificielle', date: '14 mars 2026', title: "Comment l'intelligence artificielle peut aider votre PME", excerpt: "Decouvrez comment les PME peuvent utiliser ces outils pour gagner du temps.", href: '/blog/ia-pme' },
+  { id: 3, category: 'Marketing', date: '5 mars 2026', title: "Attirer des clients sans prospection agressive", excerpt: "Strategies concretes adaptees aux PME pour generer des leads durablement.", href: '/blog/attirer-clients-sans-prospection' },
 ]
 
 const PILIERS: Pillar[] = [
@@ -321,24 +313,7 @@ export default function HomePage() {
         <main id="main-content">
           {/* Hero */}
           <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              poster="/images/hero-agence-digitale-pme-suisse.webp"
-              className="absolute inset-0 w-full h-full object-cover z-0"
-            >
-              <source src="/videos/hero-background.mp4" type="video/mp4" />
-            </video>
-            <Image
-              src="/images/hero-agence-digitale-pme-suisse.webp"
-              alt="agence digitale pour pme suisses clicom vevey"
-              fill
-              className="object-cover z-0"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-slate-900/65 to-brand-900/75 z-[1]" />
+            <Particles />
             <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24">
               <div className="animate-fade-in">
                 <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium text-white/90 mb-8 border border-white/20 backdrop-blur-sm animate-slide-up">
@@ -373,7 +348,7 @@ export default function HomePage() {
                       <h3 className="text-2xl font-bold mb-4 text-slate-900 group-hover:text-brand-600 transition-colors">{s.title}</h3>
                       <p className="text-slate-600 mb-6 leading-relaxed">{s.desc}</p>
                       <div className="flex flex-wrap gap-2">{s.tags.map(tag => <span key={tag} className="px-3 py-1.5 bg-brand-50 text-brand-700 text-xs font-medium rounded-lg">{tag}</span>)}</div>
-                      </Link>
+                    </Link>
                   </Reveal>
                 ))}
               </div>
@@ -522,13 +497,3 @@ export default function HomePage() {
     </>
   )
 }
-
-
-
-
-
-
-
-
-
-
