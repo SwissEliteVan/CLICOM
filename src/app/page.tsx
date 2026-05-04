@@ -34,67 +34,65 @@ export default function HomePage() {
       <main id="main-content">
         {/* Hero */}
         <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-          {/* Background Image avec parallax subtil */}
+          {/* Background Image avec effet premium */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/images/hero-agence-digitale-pme-suisse.webp"
               alt="agence digitale pour pme suisses clicom vevey"
               fill
-              className="object-cover object-center scale-105"
+              className="object-cover object-top"
               priority
               sizes="100vw"
-              quality={90}
+              quality={95}
             />
           </div>
           
-          {/* Multi-layer Gradient Overlay Premium */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-900/80 to-slate-900/70 z-[1]" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-brand-950/60 via-transparent to-accent-900/40 z-[1]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(15,23,42,0.4)_100%)] z-[1]" />
+          {/* Overlay subtil pour meilleure visibilité de l'image */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-slate-900/60 z-[1]" />
           
           {/* Content Container */}
-          <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-24 pb-16">
-            {/* Badge animé */}
+          <div className="relative z-10 max-w-7xl mx-auto px-6 text-center pt-24 pb-16">
+            {/* Badge premium animé */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 rounded-full text-sm font-semibold text-white/95 mb-8 border border-white/30 backdrop-blur-md shadow-xl">
-                <Icon name="star" size={16} className="text-accent-400" />
-                <span>Agence digitale basée à Vevey • Suisse romande</span>
+              <span className="inline-flex items-center gap-2.5 px-6 py-3 bg-white/5 rounded-full text-sm font-bold text-white mb-10 border border-white/20 backdrop-blur-xl shadow-2xl">
+                <Icon name="star" size={18} className="text-accent-400" />
+                <span className="tracking-wide">Agence digitale basée à Vevey • Suisse romande</span>
               </span>
             </motion.div>
 
-            {/* Titre principal avec animation staggered */}
+            {/* Titre principal avec typographie premium */}
             <motion.h1
-              className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.1] mb-8 tracking-tight"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-black leading-tight mb-10 tracking-[-0.02em] py-2"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="block text-white drop-shadow-2xl">
+              <span className="block text-white drop-shadow-lg py-2">
                 Propulsez votre PME
               </span>
-              <span className="block mt-2 bg-gradient-to-r from-accent-400 via-accent-300 to-brand-400 bg-clip-text text-transparent">
+              <span className="block mt-3 text-white drop-shadow-lg py-2 bg-gradient-to-r from-accent-300 via-accent-400 to-brand-300 bg-clip-text">
                 vers le succès digital
               </span>
             </motion.h1>
 
-            {/* Sous-titre */}
+            {/* Sous-titre premium */}
             <motion.p
-              className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-14 leading-relaxed font-medium"
+              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-16 leading-relaxed font-medium py-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
               Sites web performants, référencement SEO optimisé et stratégie digitale sur-mesure.
-              <span className="block mt-2 text-accent-300/90">Votre partenaire digital en Suisse romande.</span>
+              <span className="block mt-3 text-accent-300 font-semibold text-lg">Votre partenaire digital en Suisse romande.</span>
             </motion.p>
 
-            {/* Stats Cards avec animations décalées */}
+            {/* Stats Cards premium avec animations décalées */}
             <motion.div
-              className="flex flex-wrap justify-center gap-6 mb-16"
+              className="flex flex-wrap justify-center gap-8 mb-20"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -102,61 +100,61 @@ export default function HomePage() {
               {HERO_STATS.map((s, i) => (
                 <motion.div
                   key={s.label}
-                  className="group text-center px-8 py-5 bg-white/5 rounded-2xl backdrop-blur-md border border-white/20 hover:bg-white/10 hover:border-white/40 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl"
+                  className="group text-center px-10 py-6 bg-white/5 rounded-3xl backdrop-blur-xl border border-white/10 hover:bg-white/10 hover:border-accent-400/50 hover:scale-105 transition-all duration-500 shadow-2xl hover:shadow-accent-500/20"
                   initial={{ opacity: 0, y: 20, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.6, delay: 0.8 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -8 }}
                 >
-                  <div className="text-4xl md:text-5xl font-black bg-gradient-to-br from-accent-400 to-accent-300 bg-clip-text text-transparent mb-1">
+                  <div className="text-5xl md:text-6xl font-black bg-gradient-to-br from-accent-300 via-accent-400 to-brand-400 bg-clip-text text-transparent mb-2">
                     {s.value}
                   </div>
-                  <div className="text-sm text-white/70 font-semibold tracking-wide">
+                  <div className="text-sm text-white/80 font-bold tracking-wider uppercase">
                     {s.label}
                   </div>
                 </motion.div>
               ))}
             </motion.div>
 
-            {/* CTA Buttons avec hover premium */}
+            {/* CTA Buttons premium avec hover sophistiqué */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-5 justify-center"
+              className="flex flex-col sm:flex-row gap-6 justify-center"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.1 }}
             >
               <motion.div
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.06, y: -3 }}
+                whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link
                   href="/services"
-                  className="group inline-flex items-center justify-center gap-2 px-10 py-5 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-bold rounded-xl shadow-xl shadow-accent-500/30 hover:shadow-2xl hover:shadow-accent-500/50 transition-all duration-300"
+                  className="group inline-flex items-center justify-center gap-3 px-12 py-6 bg-gradient-to-r from-accent-500 via-accent-600 to-accent-500 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-bold text-lg rounded-2xl shadow-2xl shadow-accent-500/40 hover:shadow-3xl hover:shadow-accent-500/60 transition-all duration-500"
                 >
                   <span>Découvrir nos services</span>
-                  <Icon name="arrowRight" size={18} className="group-hover:translate-x-1 transition-transform" />
+                  <Icon name="arrowRight" size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
                 </Link>
               </motion.div>
               
               <motion.div
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.06, y: -3 }}
+                whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link
                   href="/devis"
-                  className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 transition-all backdrop-blur-md border-2 border-white/30 hover:border-white/50 shadow-lg"
+                  className="inline-flex items-center justify-center gap-3 px-12 py-6 bg-white/5 text-white font-bold text-lg rounded-2xl hover:bg-white/15 transition-all duration-300 backdrop-blur-xl border-2 border-white/20 hover:border-white/40 shadow-2xl hover:shadow-white/10"
                 >
-                  <Icon name="mail" size={18} />
+                  <Icon name="mail" size={20} />
                   <span>Devis gratuit</span>
                 </Link>
               </motion.div>
             </motion.div>
           </div>
 
-          {/* Bottom fade pour transition douce */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-[2]" />
+          {/* Bottom fade premium pour transition douce */}
+          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/80 to-transparent z-[2]" />
         </section>
 
         {/* Services */}
