@@ -15,7 +15,7 @@ export const SERVICES_DATA: Service[] = [
     desc: 'Nous concevons des sites vitrines et e-commerce sur mesure, avec un design moderne et une navigation fluide.',
     tags: ['Design sur mesure', 'Navigation fluide', 'Mobile-friendly', 'Rapide'],
     href: '/services/creation-site',
-    image: '/images/creation-site-web-pme-suisse-romande.webp',
+    image: '/images/creation-site-internet-pme-suisse.avif',
     alt: 'creation site web professionnel pme suisse clicom',
   },
   {
@@ -33,7 +33,7 @@ export const SERVICES_DATA: Service[] = [
     desc: 'Votre marque merite une identite forte. Logo, charte graphique, supports de communication.',
     tags: ['Logo', 'Charte graphique', 'Coherence', 'Professionnel'],
     href: '/services/ux-ui-design',
-    image: '/images/logo-clicom-agence-digitale-bleu.webp',
+    image: '/images/reunion-conseil-client-agence-digitale.avif',
     alt: 'logo clicom agence digitale identite visuelle',
   },
   {

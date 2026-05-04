@@ -48,7 +48,7 @@ export default function HomePage() {
           </div>
           
           {/* Overlay subtil pour meilleure visibilité de l'image */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-slate-900/60 z-[1]" />
+          <div className="absolute inset-0 bg-black/30 z-[1]" />
           
           {/* Content Container */}
           <div className="relative z-10 max-w-7xl mx-auto px-6 text-center pt-24 pb-16">
@@ -66,7 +66,7 @@ export default function HomePage() {
 
             {/* Titre principal avec typographie premium */}
             <motion.h1
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-black leading-tight mb-10 tracking-[-0.02em] py-2"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-black leading-normal pb-4 mb-10 tracking-[-0.02em] py-2"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -166,16 +166,17 @@ export default function HomePage() {
                 <Reveal key={s.id} delay={i * 100}>
                   <Link
                     href={s.href}
-                    className="block bg-slate-50 rounded-2xl hover:shadow-soft transition-all group border border-slate-100 hover:border-brand-200 hover:bg-white overflow-hidden"
+                    className="flex flex-col h-full bg-slate-50 rounded-2xl hover:shadow-soft transition-all group border border-slate-100 hover:border-brand-200 hover:bg-white overflow-hidden"
                   >
-                    <div className="relative w-full aspect-video overflow-hidden bg-slate-100">
+                    <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-slate-100">
                       <Image
                         src={s.image}
                         alt={s.alt}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                     </div>
                     <div className="p-8 md:p-10">
                       <h3 className="text-2xl font-bold mb-4 text-slate-900 group-hover:text-brand-600 transition-colors">{s.title}</h3>
@@ -299,8 +300,8 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-8">
               {BLOG_POSTS.map((post, i) => (
                 <Reveal key={post.id} delay={i * 100}>
-                  <div className="bg-white rounded-2xl overflow-hidden shadow-soft border border-slate-100 hover:border-brand-200 transition-all group h-full flex flex-col">
-                    <div className="relative w-full aspect-video overflow-hidden bg-slate-100">
+                  <div className="flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-soft border border-slate-100 hover:border-brand-200 transition-all group">
+                    <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-slate-100">
                       <Image
                         src={post.image}
                         alt={post.alt}
