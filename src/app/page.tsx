@@ -87,6 +87,9 @@ export default function HomePage() {
                     href={s.href}
                     className="block p-8 md:p-10 bg-slate-50 rounded-2xl hover:shadow-soft transition-all group border border-slate-100 hover:border-brand-200 hover:bg-white"
                   >
+                    <div className="relative h-56 w-full overflow-hidden border-b border-slate-100">
+                      <Image src={s.image} alt={s.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
                     <h3 className="text-2xl font-bold mb-4 text-slate-900 group-hover:text-brand-600 transition-colors">{s.title}</h3>
                     <p className="text-slate-600 mb-6 leading-relaxed">{s.desc}</p>
                     <div className="flex flex-wrap gap-2">
@@ -197,6 +200,9 @@ export default function HomePage() {
               {BLOG_POSTS.map((post, i) => (
                 <Reveal key={post.id} delay={i * 100}>
                   <div className="bg-white rounded-2xl overflow-hidden shadow-soft border border-slate-100 hover:border-brand-200 transition-all group h-full flex flex-col">
+                    <div className="relative h-64 w-full rounded-2xl overflow-hidden mb-6">
+                      <Image src={post.image} alt={post.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
                     <div className="p-8 flex flex-col h-full">
                       <div className="flex items-center gap-4 mb-4">
                         <span className="text-xs font-bold text-brand-600 uppercase tracking-widest">{post.category}</span>
