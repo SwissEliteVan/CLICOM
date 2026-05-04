@@ -1,9 +1,7 @@
-'use client'
+﻿'use client'
 
 import { useState, useCallback, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import Head from 'next/head'
-
 // --- Types ---
 interface DevisFormData {
   prenom: string
@@ -279,13 +277,6 @@ export default function DevisPage() {
 
   return (
     <>
-      <Head>
-        <title>Demander un audit digital gratuit | CLICOM Agence Web</title>
-        <meta
-          name="description"
-          content="Audit digital gratuit et devis personnalisé sous 24h pour votre projet web. Création de site, SEO, SEA, stratégie digitale par CLICOM."
-        />
-      </Head>
       <div className="min-h-screen bg-white">
         <nav className="bg-white shadow-soft sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">

@@ -1,4 +1,5 @@
-﻿import Link from 'next/link'
+$code = @'
+import Link from 'next/link'
 import Image from 'next/image'
 import type { Metadata } from 'next'
 
@@ -122,3 +123,8 @@ export default function ServicesPage() {
     </main>
   )
 }
+'@
+
+$path = 'src/app/services/page.tsx'
+Set-Content -Path $path -Value $code -Encoding UTF8 -NoNewline
+Write-Host ("OK: {0} ecrase ({1} caracteres)" -f $path, $code.Length)

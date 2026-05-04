@@ -1,8 +1,7 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Head from 'next/head'
 import Image from 'next/image'
 
 interface ContactFormData {
@@ -42,10 +41,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <Head>
-        <title>Contact | CLICOM Agence Web</title>
-        <meta name="description" content="Contactez CLICOM pour votre projet digital. Telephone, email ou formulaire de contact. Reponse sous 24h." />
-      </Head>
       <div className="min-h-screen bg-white">
         <nav className="bg-white shadow-soft sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
