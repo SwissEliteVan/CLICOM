@@ -271,21 +271,33 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {PRICING_PLANS.map((plan, i) => (
                 <Reveal key={plan.title} delay={i * 100}>
-                  <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:border-brand-200 hover:shadow-soft transition-all h-full flex flex-col">
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">{plan.title}</h3>
-                    <div className="text-3xl font-black text-brand-600 mb-2">{plan.price}</div>
-                    <p className="text-sm text-slate-500 mb-6">{plan.sub}</p>
-                    <ul className="space-y-3 mb-8 flex-grow">
-                      {plan.features.map((f) => (
-                        <li key={f} className="flex items-start gap-3 text-slate-700 text-sm">
-                          <Icon name="check" size={18} className="text-accent-500 shrink-0 mt-0.5" />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Link href="/devis" className="w-full py-4 text-center bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:border-brand-600 hover:text-brand-600 transition-all">
-                      Demander un devis
-                    </Link>
+                  <div className="bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-200 hover:shadow-soft transition-all h-full flex flex-col overflow-hidden group">
+                    <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-slate-100">
+                      <Image
+                        src={plan.image}
+                        alt={plan.alt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    </div>
+                    <div className="p-8 flex flex-col flex-1">
+                      <h3 className="text-xl font-bold text-slate-900 mb-2">{plan.title}</h3>
+                      <div className="text-3xl font-black text-brand-600 mb-2">{plan.price}</div>
+                      <p className="text-sm text-slate-500 mb-6">{plan.sub}</p>
+                      <ul className="space-y-3 mb-8 flex-grow">
+                        {plan.features.map((f) => (
+                          <li key={f} className="flex items-start gap-3 text-slate-700 text-sm">
+                            <Icon name="check" size={18} className="text-accent-500 shrink-0 mt-0.5" />
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <Link href="/devis" className="w-full py-4 text-center bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:border-brand-600 hover:text-brand-600 transition-all">
+                        Demander un devis
+                      </Link>
+                    </div>
                   </div>
                 </Reveal>
               ))}
