@@ -1,5 +1,7 @@
-﻿import Link from 'next/link'
+﻿'use client'
+import Link from 'next/link'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Icon from '@/components/Icon'
@@ -31,49 +33,130 @@ export default function HomePage() {
 
       <main id="main-content">
         {/* Hero */}
-        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
-          <Image
-            src="/images/hero-agence-digitale-pme-suisse.webp"
-            alt="agence digitale pour pme suisses clicom vevey"
-            fill
-            className="object-cover object-top z-0"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-slate-900/65 to-brand-900/75 z-[1]" />
-          <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24">
-            <div className="animate-fade-in">
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium text-white/90 mb-8 border border-white/20 backdrop-blur-sm animate-slide-up">
-                <Icon name="star" size={16} className="text-accent-400" /> Agence digitale basee a Vevey - Suisse romande
-              </span>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-none mb-8 tracking-tight text-white">
-                Votre agence digitale <br /> pour <span className="text-accent-400">PME suisses</span>
-              </h1>
-              <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed">
-                Nous creons des sites web professionnels, ameliorons votre visibilite sur Google et vous accompagnons dans votre strategie digitale.
-              </p>
-              <div className="flex flex-wrap justify-center gap-6 mb-16">
-                {HERO_STATS.map((s, i) => (
-                  <div
-                    key={s.label}
-                    className="text-center px-8 py-4 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10 animate-slide-up"
-                    style={{ animationDelay: `${i * 0.2}s` }}
-                  >
-                    <div className="text-3xl md:text-4xl font-bold text-accent-400">{s.value}</div>
-                    <div className="text-sm text-white/60 font-medium mt-1">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/services" className="px-10 py-5 bg-accent-500 text-white font-semibold rounded-xl hover:bg-accent-600 transition-all shadow-lg hover:shadow-xl hover:scale-105 transform duration-300">
-                  Decouvrir nos services
-                </Link>
-                <Link href="/devis" className="px-10 py-5 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all backdrop-blur-sm border border-white/20">
-                  Demander un devis gratuit
-                </Link>
-              </div>
-            </div>
+        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+          {/* Background Image avec parallax subtil */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/hero-agence-digitale-pme-suisse.webp"
+              alt="agence digitale pour pme suisses clicom vevey"
+              fill
+              className="object-cover object-center scale-105"
+              priority
+              sizes="100vw"
+              quality={90}
+            />
           </div>
+          
+          {/* Multi-layer Gradient Overlay Premium */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-900/80 to-slate-900/70 z-[1]" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-brand-950/60 via-transparent to-accent-900/40 z-[1]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(15,23,42,0.4)_100%)] z-[1]" />
+          
+          {/* Content Container */}
+          <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-24 pb-16">
+            {/* Badge animé */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 rounded-full text-sm font-semibold text-white/95 mb-8 border border-white/30 backdrop-blur-md shadow-xl">
+                <Icon name="star" size={16} className="text-accent-400" />
+                <span>Agence digitale basée à Vevey • Suisse romande</span>
+              </span>
+            </motion.div>
+
+            {/* Titre principal avec animation staggered */}
+            <motion.h1
+              className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.1] mb-8 tracking-tight"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className="block text-white drop-shadow-2xl">
+                Propulsez votre PME
+              </span>
+              <span className="block mt-2 bg-gradient-to-r from-accent-400 via-accent-300 to-brand-400 bg-clip-text text-transparent">
+                vers le succès digital
+              </span>
+            </motion.h1>
+
+            {/* Sous-titre */}
+            <motion.p
+              className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-14 leading-relaxed font-medium"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            >
+              Sites web performants, référencement SEO optimisé et stratégie digitale sur-mesure.
+              <span className="block mt-2 text-accent-300/90">Votre partenaire digital en Suisse romande.</span>
+            </motion.p>
+
+            {/* Stats Cards avec animations décalées */}
+            <motion.div
+              className="flex flex-wrap justify-center gap-6 mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              {HERO_STATS.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  className="group text-center px-8 py-5 bg-white/5 rounded-2xl backdrop-blur-md border border-white/20 hover:bg-white/10 hover:border-white/40 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl"
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.8 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="text-4xl md:text-5xl font-black bg-gradient-to-br from-accent-400 to-accent-300 bg-clip-text text-transparent mb-1">
+                    {s.value}
+                  </div>
+                  <div className="text-sm text-white/70 font-semibold tracking-wide">
+                    {s.label}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons avec hover premium */}
+            <motion.div
+              className="flex flex-col sm:flex-row gap-5 justify-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <Link
+                  href="/services"
+                  className="group inline-flex items-center justify-center gap-2 px-10 py-5 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-bold rounded-xl shadow-xl shadow-accent-500/30 hover:shadow-2xl hover:shadow-accent-500/50 transition-all duration-300"
+                >
+                  <span>Découvrir nos services</span>
+                  <Icon name="arrowRight" size={18} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+              
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <Link
+                  href="/devis"
+                  className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 transition-all backdrop-blur-md border-2 border-white/30 hover:border-white/50 shadow-lg"
+                >
+                  <Icon name="mail" size={18} />
+                  <span>Devis gratuit</span>
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Bottom fade pour transition douce */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-[2]" />
         </section>
 
         {/* Services */}
@@ -85,17 +168,25 @@ export default function HomePage() {
                 <Reveal key={s.id} delay={i * 100}>
                   <Link
                     href={s.href}
-                    className="block p-8 md:p-10 bg-slate-50 rounded-2xl hover:shadow-soft transition-all group border border-slate-100 hover:border-brand-200 hover:bg-white"
+                    className="block bg-slate-50 rounded-2xl hover:shadow-soft transition-all group border border-slate-100 hover:border-brand-200 hover:bg-white overflow-hidden"
                   >
-                    <div className="relative h-56 w-full overflow-hidden border-b border-slate-100">
-                      <Image src={s.image} alt={s.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="relative w-full aspect-video overflow-hidden bg-slate-100">
+                      <Image
+                        src={s.image}
+                        alt={s.alt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
                     </div>
-                    <h3 className="text-2xl font-bold mb-4 text-slate-900 group-hover:text-brand-600 transition-colors">{s.title}</h3>
-                    <p className="text-slate-600 mb-6 leading-relaxed">{s.desc}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {s.tags.map((tag) => (
-                        <span key={tag} className="px-3 py-1.5 bg-brand-50 text-brand-700 text-xs font-medium rounded-lg">{tag}</span>
-                      ))}
+                    <div className="p-8 md:p-10">
+                      <h3 className="text-2xl font-bold mb-4 text-slate-900 group-hover:text-brand-600 transition-colors">{s.title}</h3>
+                      <p className="text-slate-600 mb-6 leading-relaxed">{s.desc}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {s.tags.map((tag) => (
+                          <span key={tag} className="px-3 py-1.5 bg-brand-50 text-brand-700 text-xs font-medium rounded-lg">{tag}</span>
+                        ))}
+                      </div>
                     </div>
                   </Link>
                 </Reveal>
@@ -111,15 +202,26 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-10">
               {PILIERS.map((p, i) => (
                 <Reveal key={p.id} delay={i * 150}>
-                  <div className="text-center p-8 md:p-10 bg-white rounded-2xl shadow-soft hover:shadow-glow transition-all">
-                    <div className="text-6xl font-black text-brand-600/10 mb-6">{p.number}</div>
-                    <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-accent-500 rounded-full mx-auto mb-6" />
-                    <h3 className="text-2xl font-bold mb-4 text-slate-900">{p.title}</h3>
-                    <p className="text-slate-600 leading-relaxed mb-6">{p.desc}</p>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {p.tags.map((tag) => (
-                        <span key={tag} className="px-3 py-1.5 bg-brand-50 text-brand-700 text-xs font-medium rounded-lg">{tag}</span>
-                      ))}
+                  <div className="text-center bg-white rounded-2xl shadow-soft hover:shadow-glow transition-all group h-full overflow-hidden flex flex-col">
+                    <div className="relative w-full aspect-[4/3] overflow-hidden bg-slate-100">
+                      <Image
+                        src={p.image}
+                        alt={p.alt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                    <div className="p-8 md:p-10 flex-1 flex flex-col">
+                      <div className="text-6xl font-black text-brand-600/10 mb-6">{p.number}</div>
+                      <div className="w-16 h-1 bg-gradient-to-r from-brand-500 to-accent-500 rounded-full mx-auto mb-6" />
+                      <h3 className="text-2xl font-bold mb-4 text-slate-900">{p.title}</h3>
+                      <p className="text-slate-600 leading-relaxed mb-6 flex-1">{p.desc}</p>
+                      <div className="flex flex-wrap justify-center gap-2">
+                        {p.tags.map((tag) => (
+                          <span key={tag} className="px-3 py-1.5 bg-brand-50 text-brand-700 text-xs font-medium rounded-lg">{tag}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </Reveal>
@@ -200,16 +302,22 @@ export default function HomePage() {
               {BLOG_POSTS.map((post, i) => (
                 <Reveal key={post.id} delay={i * 100}>
                   <div className="bg-white rounded-2xl overflow-hidden shadow-soft border border-slate-100 hover:border-brand-200 transition-all group h-full flex flex-col">
-                    <div className="relative h-64 w-full rounded-2xl overflow-hidden mb-6">
-                      <Image src={post.image} alt={post.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="relative w-full aspect-video overflow-hidden bg-slate-100">
+                      <Image
+                        src={post.image}
+                        alt={post.alt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
                     </div>
-                    <div className="p-8 flex flex-col h-full">
+                    <div className="p-8 flex flex-col flex-1">
                       <div className="flex items-center gap-4 mb-4">
                         <span className="text-xs font-bold text-brand-600 uppercase tracking-widest">{post.category}</span>
                         <span className="text-xs text-slate-400">{post.date}</span>
                       </div>
                       <h3 className="text-xl font-bold mb-4 text-slate-900 group-hover:text-brand-600 transition-colors">{post.title}</h3>
-                      <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{post.excerpt}</p>
+                      <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">{post.excerpt}</p>
                       <Link href={post.href} className="inline-flex items-center gap-2 text-brand-600 font-bold text-sm group-hover:gap-4 transition-all">
                         Lire l&apos;article <Icon name="arrowRight" size={16} />
                       </Link>
