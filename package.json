@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prod": "NODE_ENV=production node server.js",
+    "prod:pm2": "pm2 start ecosystem.config.js",
+    "deploy:check": "npm run lint && npm run build",
+    "clean": "rm -rf .next out node_modules/.cache logs/*.log",
+    "logs": "pm2 logs clicom"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",

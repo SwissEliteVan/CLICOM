@@ -36,7 +36,31 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
 # cache
 .turbo/
+
+# ====================================================================
+# Configuration de déploiement Hostinger
+# ====================================================================
+
+# Logs PM2
+logs/
+pm2-*.log
+
+# Archives de déploiement
+clicom-deploy.zip
+temp_deploy/
+
+# Backup files
+*.bak
+*.backup
+*.old
+*~
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
 
